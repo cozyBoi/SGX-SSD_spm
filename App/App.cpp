@@ -403,7 +403,7 @@ int SGX_CDECL main(int argc, char *argv[])
     //printf("%d",sizeof(sgx_sealed_data_t));
     printf_helloworld(global_eid, policy_arr, policy_cnt, spm_param, newLine);
     fclose(fp);
-    FILE*fp = fopen(POLICY_LIST, "a+");
+    fp = fopen(POLICY_LIST, "a+");
     fprintf(fp, "%d %d %d\n", retention_time, backup_cycle, 0);
     /* Destroy the enclave */
     sgx_destroy_enclave(global_eid);
