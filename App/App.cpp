@@ -404,7 +404,8 @@ int SGX_CDECL main(int argc, char *argv[])
     printf_helloworld(global_eid, policy_arr, policy_cnt, spm_param, newLine);
     fclose(fp);
     fp = fopen(POLICY_LIST, "a+");
-    fprintf(fp, "%d %d %d\n", retention_time, backup_cycle, 0);
+    //fprintf(fp, "%d %d %d\n", retention_time, backup_cycle, 0);
+    fprintf(fp, "%s\n", newLine);
     /* Destroy the enclave */
     sgx_destroy_enclave(global_eid);
     return 0;
