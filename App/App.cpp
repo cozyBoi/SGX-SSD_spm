@@ -48,9 +48,9 @@ const int BUF_MAX_SIZE = 1000;
 const int para_MAX_SIZE = 3;
 const int para_MAX_LEN = 100; //same as max directory size
 
-#define SPM_CREATE 0x65
-#define SPM_CHANGE 0x66
-#define SPM_DELETE 0x67
+#define SPM_CREATE 101
+#define SPM_CHANGE 102
+#define SPM_DELETE 103
 
 #define __NR_enc_rdafwr 333
 
@@ -98,7 +98,7 @@ enum ds_cmd{
 };
 
 enum spm_cmd{
-    SPM_CREATE = 0x65,
+    SPM_CREATE = 101,
     SPM_CHANGE,
     SPM_DELETE,
     SPM_RECOVERY
