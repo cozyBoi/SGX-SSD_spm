@@ -37,8 +37,6 @@
 #include "Enclave.h"
 #include "Enclave_t.h"  /* print_string */
 
-#define POLICY_LIST "/home/lass/jinhoon/policy_list"
-
 /* 
  * printf: 
  *   Invokes OCALL to display the enclave buffer to the terminal.
@@ -56,6 +54,6 @@ void printf(const char *fmt, ...)
 void printf_helloworld()
 {
     printf("Hello World\n");
-    FILE*fp = fopen(POLICY_LIST, "r+");
+    
 }
 

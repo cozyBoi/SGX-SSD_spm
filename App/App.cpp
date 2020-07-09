@@ -227,6 +227,7 @@ void ocall_print_string(const char *str)
     printf("%s", str);
 }
 
+#define POLICY_LIST "/home/lass/jinhoon/policy_list"
 
 /* Application entry */
 int SGX_CDECL main(int argc, char *argv[])
@@ -241,7 +242,7 @@ int SGX_CDECL main(int argc, char *argv[])
         getchar();
         return -1; 
     }
- 
+    FILE*fp = fopen(POLICY_LIST, "r+");
     printf_helloworld(global_eid);
 
     /* Destroy the enclave */
