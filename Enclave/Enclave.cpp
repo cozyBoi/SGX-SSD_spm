@@ -54,6 +54,6 @@ void printf(const char *fmt, ...)
 void printf_helloworld(char policy_arr[32][1000], int policy_cnt, int spm_param[4])
 {
     printf("Hello World\n");
-    
+    printf("spm_param : %d %d %d", spm_param[0], spm_param[1], spm_param[2]);
 }
 
