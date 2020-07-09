@@ -393,7 +393,7 @@ int SGX_CDECL main(int argc, char *argv[])
     spm_param[2] = command;
     
     char newLine[sizeof(sgx_sealed_data_t) + 1000];
-    
+    printf("%d",sizeof(sgx_sealed_data_t));
     printf_helloworld(global_eid, policy_arr, policy_cnt, spm_param, newLine);
     
     /* Destroy the enclave */
