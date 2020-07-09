@@ -53,12 +53,12 @@
 # define ENCLAVE_FILENAME "enclave.signed.so"
 
 extern sgx_enclave_id_t global_eid;    /* global enclave id */
-typedef struct SPM_PARAM{
+struct SPM_PARAM{
     int ret_time;
     int backup_cycle;
     int version_num;
     int cmd;
-}spm_param;
+};
 
 #if defined(__cplusplus)
 extern "C" {
