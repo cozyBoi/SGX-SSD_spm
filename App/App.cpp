@@ -228,7 +228,7 @@ void ocall_print_string(const char *str)
 }
 
 #define POLICY_LIST "/home/lass/jinhoon/policy_list"
-
+char*policy_arr[32][1000];
 /* Application entry */
 int SGX_CDECL main(int argc, char *argv[])
 {
@@ -242,8 +242,100 @@ int SGX_CDECL main(int argc, char *argv[])
         getchar();
         return -1; 
     }
+    printf("**************************************************************\n");
+    printf("* SGX-SSD policy manager                                     *\n");
+    printf("*                                                            *\n");
+    printf("* press command and parameter                                *\n");
+    printf("*                                                            *\n");
+    printf("* ex) {create|change|delete} {ret_time} {Backup_cycle}       *\n");
+    printf("*                                                            *\n");
+    printf("* units:                                                     *\n");
+    printf("* retention time : day                                       *\n");
+    printf("* Backup cycle   : day                                       *\n");
+    printf("**************************************************************\n");
+    
+    //assume aurora input
+    char in[1000];
+    line_input(in);
+    //debug
+    //printf("%s\n", in);
+    
+    char para_arr[para_MAX_SIZE][para_MAX_LEN]; //save parameters
+    parse_str(in, para_arr);
+    
+    //debug
+    
+    printf("parameter lists : \n");
+    for(int i = 0; i < para_MAX_SIZE; i++){
+        printf("%s\n", para_arr[i]);
+    }
+    
+    char path[100];
+    int command, retention_time, backup_cycle, version_number, pid;
+    
+    int branch = 0;
+    
+    if(para_arr[0][0] == 'c' && para_arr[0][1] == 'r'){
+        command = SPM_CREATE;
+    }
+    else if(para_arr[0][0] == 'c' && para_arr[0][1] == 'h'){
+        command = SPM_CHANGE;
+    }
+    else if(para_arr[0][0] == 'd' || para_arr[0][0] == 'D'){
+        command = SPM_DELETE;
+    }
+    else if(para_arr[0][0] == 'r' || para_arr[0][0] == 'R'){
+        //no recovery
+        command = 3;
+        branch = 1;
+    }
+    else{
+        fprintf(stderr, "error : command\n");
+        return 0;
+    }
+    
+    if(command == SPM_CHANGE){
+        //what pid to change?
+        printf("what pid to change : ");
+        scanf("%d", &pid);
+    }
+    
+    strcpy(path, para_arr[1]);
+    
+    if(!branch){
+        //not recovery
+        retention_time = atoi(para_arr[1]);
+        backup_cycle = atoi(para_arr[2]);
+        //version_number = atoi(para_arr[4]);
+    }
+    else{
+        //recovery
+        //??
+    }
+    //debug
+    //printf("data : %d%s%d%d%d\n", command, path, retention_time, backup_cycle, version_number);
+    printf("data : %d%d%d\n", command, retention_time, backup_cycle);
+    
     FILE*fp = fopen(POLICY_LIST, "r+");
-    printf_helloworld(global_eid);
+    
+    int policy_cnt = 0;
+    
+    while(1){
+        int eof, i = 0;
+        char line[10];
+        while(1){
+            char tmp = 0 ;
+            eof = fscanf(fp, "%c", &tmp);
+            line[i++] = tmp;
+            //printf("%c", tmp);
+            if(tmp == '\n' || eof == EOF) break;
+        }
+        if(eof == EOF) break;
+        strcpy(policy_arr[policy_cnt], line);
+        policy_cnt++;
+    }
+    
+    printf_helloworld(global_eid, policy_arr);
 
     /* Destroy the enclave */
     sgx_destroy_enclave(global_eid);
