@@ -48,9 +48,9 @@ const int BUF_MAX_SIZE = 1000;
 const int para_MAX_SIZE = 3;
 const int para_MAX_LEN = 100; //same as max directory size
 
-#define SPM_CREATE 101
-#define SPM_CHANGE 102
-#define SPM_DELETE 103
+const int SPM_CREATE = 101;
+const int SPM_CHANGE = 102;
+const int SPM_DELETE = 103;
 
 #define __NR_enc_rdafwr 333
 
