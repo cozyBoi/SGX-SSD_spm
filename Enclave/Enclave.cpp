@@ -54,7 +54,7 @@ void printf(const char *fmt, ...)
     ocall_print_string(buf);
 }
 
-void printf_helloworld(char policy_arr[32][1000], int policy_cnt, int spm_param[4], char newLine[1000])
+void printf_helloworld(char policy_arr[32][1000], int policy_cnt, int spm_param[4], char newLine[1560])
 {
     printf("Hello World\n");
     printf("spm_param : %d %d %d\n", spm_param[0], spm_param[1], spm_param[2]);
