@@ -37,7 +37,8 @@
 # include <unistd.h>
 # include <pwd.h>
 # define MAX_PATH FILENAME_MAX
-
+#include "sgx_trts.h"
+#include "sgx_tseal.h"
 #include "sgx_urts.h"
 #include "App.h"
 #include "Enclave_u.h"
