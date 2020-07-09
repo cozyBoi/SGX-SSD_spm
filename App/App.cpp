@@ -387,8 +387,8 @@ int SGX_CDECL main(int argc, char *argv[])
     int spm_param[4];
     spm_param[0] = retention_time;
     spm_param[1] = backup_cycle;
-    spm_param[2] = version_number;
-    spm_param[3] = command;
+    //spm_param[2] = version_number;
+    spm_param[2] = command;
     
     printf_helloworld(global_eid, policy_arr, policy_cnt, spm_param);
 
