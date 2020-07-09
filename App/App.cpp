@@ -387,8 +387,8 @@ int SGX_CDECL main(int argc, char *argv[])
     spm_param sp;
     sp.ret_time = retention_time;
     sp.backup_cycle = backup_cycle;
-    sp.version_number = version_number;
-    sp.command = command;
+    sp.version_num = version_number;
+    sp.cmd = command;
     
     printf_helloworld(global_eid, policy_arr, policy_cnt, sp);
 
