@@ -47,11 +47,6 @@
 const int BUF_MAX_SIZE = 1000;
 const int para_MAX_SIZE = 3;
 const int para_MAX_LEN = 100; //same as max directory size
-
-const int SPM_CREATE = 101;
-const int SPM_CHANGE = 102;
-const int SPM_DELETE = 103;
-
 #define __NR_enc_rdafwr 333
 
 #define SECTOR_SIZE 512
@@ -142,7 +137,7 @@ int spm_send_cmd(int fd, char* buffer, int node_size, char* response, int pid, i
     char *u_buf_ = (char*) malloc (sizeof(char)*(IO_SIZE + SECTOR_SIZE));    //IO_SIZE??
     char *u_buf = (char*) ((((unsigned long)u_buf_ + SECTOR_SIZE -1 ) >> SECTOR_BIT) << SECTOR_BIT);
     
-    int cmd = ds_param->cmd = sp[3];
+    int cmd = ds_param->cmd = spm_param[3];
     ds_param->fd = fd;
     ds_param->offset = offset;
     
