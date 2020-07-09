@@ -82,8 +82,8 @@ void printf_helloworld(char policy_arr[32][1000], int policy_cnt, int spm_param[
     
     char plaintext[1000];
     uint32_t plaintext_len = 1000;
-    char sealed_data[1000];
-    uint32_t sealed_size = 1000;
+    char sealed_data[sizeof(sgx_sealed_data_t) + 1000];
+    uint32_t sealed_size = sizeof(sgx_sealed_data_t) + 1000;
     
     sgx_seal_data(0, NULL,plaintext_len, (uint8_t*)tmp_policy, sealed_size, (sgx_sealed_data_t*)sealed_data);
     sgx_unseal_data((sgx_sealed_data_t*)sealed_data, NULL, NULL, (uint8_t*)plaintext, &plaintext_len);
