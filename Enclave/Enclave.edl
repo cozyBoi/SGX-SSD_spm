@@ -31,12 +31,7 @@
 
 /* Enclave.edl - Top EDL file. */
 
-struct SPM_PARAM{
-    int ret_time;
-    int backup_cycle;
-    int version_num;
-    int cmd;
-}spm_param;
+
 
 enclave {
     
@@ -45,6 +40,13 @@ enclave {
      *  [import]: specifies the functions to import, 
      *  [*]: implies to import all functions.
      */
+
+    struct SPM_PARAM{
+        int ret_time;
+        int backup_cycle;
+        int version_num;
+        int cmd;
+    };
     
     trusted {
         public void printf_helloworld([user_check] char policy_arr[32][1000], int policy_cnt, spm_param sp);
