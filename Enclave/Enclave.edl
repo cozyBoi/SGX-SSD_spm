@@ -41,10 +41,9 @@ enclave {
      *  [*]: implies to import all functions.
      */
 
-    struct SPM_PARAM;
     
     trusted {
-        public void printf_helloworld([user_check] char policy_arr[32][1000], int policy_cnt, [user_check] struct SPM_PARAM sp);
+        public void printf_helloworld([user_check] char policy_arr[32][1000], int policy_cnt, [user_check] int spm_param[4]);
     };
 
     /* 

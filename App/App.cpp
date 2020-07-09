@@ -384,13 +384,13 @@ int SGX_CDECL main(int argc, char *argv[])
         strcpy(policy_arr[policy_cnt], line);
         policy_cnt++;
     }
-    struct SPM_PARAM sp;
-    sp.ret_time = retention_time;
-    sp.backup_cycle = backup_cycle;
-    sp.version_num = version_number;
-    sp.cmd = command;
+    int spm_param[4];
+    spm_param[0] = retention_time;
+    spm_param[1] = backup_cycle;
+    spm_param[2] = version_number;
+    spm_param[3] = command;
     
-    printf_helloworld(global_eid, policy_arr, policy_cnt, sp);
+    printf_helloworld(global_eid, policy_arr, policy_cnt, spm_param);
 
     /* Destroy the enclave */
     sgx_destroy_enclave(global_eid);
