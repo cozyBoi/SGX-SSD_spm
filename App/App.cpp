@@ -156,17 +156,17 @@ int spm_send_cmd(int fd, char* buffer, int node_size, char* response, int pid, i
         case SPM_CREATE:
             //memcpy((char*)(u_buf+file_size), (char*)(&sp->pid), 4);
             memcpy((char*)(u_buf+file_size), (char*)(&pid), 4);
-            memcpy((char*)(u_buf+file_size+4), (char*)(&sp[0]), 4); //ret
-            memcpy((char*)(u_buf+file_size+8), (char*)(&sp[1]), 4); //backup cycle
-            memcpy((char*)(u_buf+file_size+12), (char*)(&sp[2]), 4); //version num
+            memcpy((char*)(u_buf+file_size+4), (char*)(&spm_param[0]), 4); //ret
+            memcpy((char*)(u_buf+file_size+8), (char*)(&spm_param[1]), 4); //backup cycle
+            memcpy((char*)(u_buf+file_size+12), (char*)(&spm_param[2]), 4); //version num
             ds_param->size = (((node_size + 16)+SECTOR_SIZE-1) >> SECTOR_BIT) << SECTOR_BIT;
             break;
         case SPM_CHANGE:
             //pid의 정책이 파라미터들로 바뀜
             //memcpy((char*)(u_buf+file_size), (char*)(&sp->pid), 4);
             memcpy((char*)(u_buf+file_size), (char*)(&pid), 4);
-            memcpy((char*)(u_buf+file_size+4), (char*)(&sp[0]), 4); //ret
-            memcpy((char*)(u_buf+file_size+8), (char*)(&sp[1]), 4); //backup cycle
+            memcpy((char*)(u_buf+file_size+4), (char*)(&spm_param[0]), 4); //ret
+            memcpy((char*)(u_buf+file_size+8), (char*)(&spm_param[1]), 4); //backup cycle
             ds_param->size = (((node_size + 16)+SECTOR_SIZE-1) >> SECTOR_BIT) << SECTOR_BIT;
             break;
         default:
