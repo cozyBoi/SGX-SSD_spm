@@ -398,6 +398,6 @@ int SGX_CDECL main(int argc, char *argv[])
     
     /* Destroy the enclave */
     sgx_destroy_enclave(global_eid);
-    
+    free(newLine);
     return 0;
 }
