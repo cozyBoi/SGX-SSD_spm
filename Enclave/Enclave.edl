@@ -40,7 +40,7 @@ enclave {
      */
     
     trusted {
-        public void printf_helloworld([user_check] char*policy_arr[1000]);
+        public void printf_helloworld([user_check] char**policy_arr);
     };
 
     /* 
