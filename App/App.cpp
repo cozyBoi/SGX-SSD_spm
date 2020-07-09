@@ -384,7 +384,7 @@ int SGX_CDECL main(int argc, char *argv[])
         strcpy(policy_arr[policy_cnt], line);
         policy_cnt++;
     }
-    spm_param sp;
+    struct SPM_PARAM sp;
     sp.ret_time = retention_time;
     sp.backup_cycle = backup_cycle;
     sp.version_num = version_number;

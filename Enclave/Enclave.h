@@ -49,7 +49,7 @@ extern "C" {
 #endif
 
 void printf(const char *fmt, ...);
-void printf_helloworld(char policy_arr[32][1000], int policy_cnt, spm_param sp);
+void printf_helloworld(char policy_arr[32][1000], int policy_cnt, struct SPM_PARAM sp);
 
 #if defined(__cplusplus)
 }
