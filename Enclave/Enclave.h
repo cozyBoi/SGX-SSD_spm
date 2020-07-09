@@ -37,12 +37,7 @@
 #include <assert.h>
 
 
-struct SPM_PARAM{
-    int ret_time;
-    int backup_cycle;
-    int version_num;
-    int cmd;
-};
+struct SPM_PARAM;
 
 #if defined(__cplusplus)
 extern "C" {
