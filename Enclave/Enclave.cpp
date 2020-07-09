@@ -73,6 +73,10 @@ void printf_helloworld(char policy_arr[32][1000], int policy_cnt, int spm_param[
     }
     
     sgx_seal_data(0, NULL, plaintext_len, plaintext, sealed_size, sealed_data);*/
+    
+    
+    //sealing policy example (check perfect excuting)
+    
     char tmp_policy[1000];
     tmp_policy[0] = spm_param[0] + '0';
     tmp_policy[1] = ' ';
@@ -87,7 +91,7 @@ void printf_helloworld(char policy_arr[32][1000], int policy_cnt, int spm_param[
     
     sgx_seal_data(0, NULL,plaintext_len, (uint8_t*)tmp_policy, sealed_size, (sgx_sealed_data_t*)sealed_data);
     sgx_unseal_data((sgx_sealed_data_t*)sealed_data, NULL, NULL, (uint8_t*)plaintext, &plaintext_len);
-    
+    printf("%s\n", sealed_data);
     printf("%s\n",plaintext);
 }
 
