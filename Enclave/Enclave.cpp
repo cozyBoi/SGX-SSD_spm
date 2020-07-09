@@ -54,7 +54,7 @@ void printf(const char *fmt, ...)
     ocall_print_string(buf);
 }
 
-void printf_helloworld(char policy_arr[32][1000], int policy_cnt, int spm_param[4])
+void printf_helloworld(char policy_arr[32][1000], int policy_cnt, int spm_param[4], char*newLine)
 {
     printf("Hello World\n");
     printf("spm_param : %d %d %d\n", spm_param[0], spm_param[1], spm_param[2]);
@@ -63,7 +63,6 @@ void printf_helloworld(char policy_arr[32][1000], int policy_cnt, int spm_param[
     //근데 걍 app에서 하자
     
     //to do : make encrypted new line for policy list
-    /*
     int i = 0;
     for(i = 0; i < policy_cnt; i++){
         uint8_t plaintext[1000];
@@ -72,11 +71,24 @@ void printf_helloworld(char policy_arr[32][1000], int policy_cnt, int spm_param[
         printf("%s\n", plaintext);
     }
     
-    sgx_seal_data(0, NULL, plaintext_len, plaintext, sealed_size, sealed_data);*/
+    char tmp_policy[1000];
+    tmp_policy[0] = spm_param[0] + '0';
+    tmp_policy[1] = ' ';
+    tmp_policy[2] = spm_param[1] + '0';
+    tmp_policy[3] = 0;
+    printf("%s\n",tmp_policy);
     
+    char plaintext[1000];
+    uint32_t plaintext_len = 1000;
+    uint32_t sealed_size = sizeof(sgx_sealed_data_t) + 1000;
+    
+    sgx_seal_data(0, NULL,plaintext_len, (uint8_t*)tmp_policy, sealed_size, (sgx_sealed_data_t*)newLine);
+    
+    sgx_unseal_data((sgx_sealed_data_t*)sealed_data, NULL, NULL, (uint8_t*)plaintext, &plaintext_len);
+    printf("%s\n",plaintext);
     
     //sealing policy example (check perfect excuting)
-    
+    /*
     char tmp_policy[1000];
     tmp_policy[0] = spm_param[0] + '0';
     tmp_policy[1] = ' ';
@@ -91,8 +103,8 @@ void printf_helloworld(char policy_arr[32][1000], int policy_cnt, int spm_param[
     
     sgx_seal_data(0, NULL,plaintext_len, (uint8_t*)tmp_policy, sealed_size, (sgx_sealed_data_t*)sealed_data);
     sgx_unseal_data((sgx_sealed_data_t*)sealed_data, NULL, NULL, (uint8_t*)plaintext, &plaintext_len);
-    printf("%s\n", sealed_data);
-    printf("%s\n",plaintext);
+    printf("%s\n", sealed_data); //why not printed?
+    printf("%s\n",plaintext);*/
 }
 
 //spm_send_cmd 에서 암호화가 됐다고 가정하고 걍 마샬링 잘해서 보내면 될듯
