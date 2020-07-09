@@ -41,7 +41,7 @@ extern "C" {
 #endif
 
 void printf(const char *fmt, ...);
-void printf_helloworld();
+void printf_helloworld(char policy_arr[32][1000]);
 
 #if defined(__cplusplus)
 }
