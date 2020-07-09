@@ -57,7 +57,7 @@ void printf(const char *fmt, ...)
 void printf_helloworld(char policy_arr[32][1000], int policy_cnt, int spm_param[4])
 {
     printf("Hello World\n");
-    printf("spm_param : %d %d %d", spm_param[0], spm_param[1], spm_param[2]);
+    printf("spm_param : %d %d %d\n", spm_param[0], spm_param[1], spm_param[2]);
     
     //to do : make encrypt msg headed for ssd
     //근데 걍 app에서 하자
@@ -75,8 +75,9 @@ void printf_helloworld(char policy_arr[32][1000], int policy_cnt, int spm_param[
     sgx_seal_data(0, NULL, plaintext_len, plaintext, sealed_size, sealed_data);*/
     char tmp_policy[1000];
     tmp_policy[0] = spm_param[0] - '0';
-    tmp_policy[1] = spm_param[1] - '0';
-    tmp_policy[2] = 0;
+    tmp_policy[1] = ' ';
+    tmp_policy[2] = spm_param[1] - '0';
+    tmp_policy[3] = 0;
     printf("%s\n",tmp_policy);
     
     char plaintext[1000];
