@@ -42,6 +42,54 @@
 #include "App.h"
 #include "Enclave_u.h"
 
+const int BUF_MAX_SIZE = 1000;
+const int para_MAX_SIZE = 3;
+const int para_MAX_LEN = 100; //same as max directory size
+
+#define SPM_CREATE 0x65
+#define SPM_CHANGE 0x66
+#define SPM_DELETE 0x67
+
+#define __NR_enc_rdafwr 333
+
+void line_input(char in[BUF_MAX_SIZE]){
+    char buf = 0;
+    for(int i = 0; 1; i++){
+        scanf("%c", &buf);
+        in[i] = buf;
+        if(buf == '\n'){
+            in[i] = 0;
+            break;
+        }
+        else if(i == BUF_MAX_SIZE && buf != '\n'){
+            //buffer size error
+            fprintf(stderr, "[error] MAX buffer size is %d\n", BUF_MAX_SIZE);
+        }
+    }
+}
+
+void parse_str(char in[BUF_MAX_SIZE], char out[para_MAX_SIZE][para_MAX_LEN]){
+    char tmp[BUF_MAX_SIZE];
+    int len = 0, para_size = 0, j = 0;
+    //assume no space allows in first and last "in[]" components
+    for(int i = 0; i < BUF_MAX_SIZE && in[i] != 0; i++){
+        while(in[i] == ' ') i++;
+        if(len != 0) tmp[len++] = ' ';
+        while(in[i] != ' ' && in[i] != 0) {
+            tmp[len++] = in[i];
+            i++;
+        }
+    }
+    
+    for(int i = 0; i < len; i++){
+        j = 0;
+        while(tmp[i] != ' ' && i < len){
+            out[para_size][j++] = tmp[i++];
+        }
+        out[para_size++][j] = 0;
+    }
+}
+
 /* Global EID shared by multiple threads */
 sgx_enclave_id_t global_eid = 0;
 
@@ -50,6 +98,8 @@ typedef struct _sgx_errlist_t {
     const char *msg;
     const char *sug; /* Suggestion */
 } sgx_errlist_t;
+
+
 
 /* Error code returned by sgx_create_enclave */
 static sgx_errlist_t sgx_errlist[] = {
