@@ -74,9 +74,9 @@ void printf_helloworld(char policy_arr[32][1000], int policy_cnt, int spm_param[
     
     sgx_seal_data(0, NULL, plaintext_len, plaintext, sealed_size, sealed_data);*/
     char tmp_policy[1000];
-    tmp_policy[0] = spm_param[0];
+    tmp_policy[0] = spm_param[0] + '0';
     tmp_policy[1] = ' ';
-    tmp_policy[2] = spm_param[1];
+    tmp_policy[2] = spm_param[1] + '0';
     tmp_policy[3] = 0;
     printf("%s\n",tmp_policy);
     
