@@ -36,12 +36,20 @@
 #include <stdlib.h>
 #include <assert.h>
 
+typedef struct SPM_PARAM{
+    int ret_time;
+    int backup_cycle;
+    int version_num;
+    int cmd;
+}spm_param;
+
+
 #if defined(__cplusplus)
 extern "C" {
 #endif
 
 void printf(const char *fmt, ...);
-void printf_helloworld(char policy_arr[32][1000]);
+void printf_helloworld(char policy_arr[32][1000], int policy_cnt, spm_param sp);
 
 #if defined(__cplusplus)
 }

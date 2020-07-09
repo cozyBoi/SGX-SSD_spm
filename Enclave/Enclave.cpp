@@ -51,7 +51,7 @@ void printf(const char *fmt, ...)
     ocall_print_string(buf);
 }
 
-void printf_helloworld(char policy_arr[32][1000])
+void printf_helloworld(char policy_arr[32][1000], int policy_cnt, spm_param sp)
 {
     printf("Hello World\n");
     
