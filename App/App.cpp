@@ -278,7 +278,7 @@ void ocall_print_string(const char *str)
 }
 
 #define POLICY_LIST "/home/lass/jinhoon/policy_list"
-char*policy_arr[32][1000];
+char policy_arr[32][1000];
 /* Application entry */
 int SGX_CDECL main(int argc, char *argv[])
 {
