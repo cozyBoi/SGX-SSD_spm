@@ -32,9 +32,12 @@
 
 #include <stdarg.h>
 #include <stdio.h>      /* vsnprintf */
+#include <stdlib.h>
 
 #include "Enclave.h"
 #include "Enclave_t.h"  /* print_string */
+
+#define POLICY_LIST "/home/lass/jinhoon/policy_list"
 
 /* 
  * printf: 
@@ -53,5 +56,6 @@ void printf(const char *fmt, ...)
 void printf_helloworld()
 {
     printf("Hello World\n");
+    FILE*fp = fopen(POLICY_LIST, "r+");
 }
 
