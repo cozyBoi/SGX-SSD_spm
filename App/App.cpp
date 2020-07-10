@@ -406,7 +406,7 @@ void ocall_print_string(const char *str)
      */
     printf("%s", str);
 }
-char newLine[1000 + sizeof(sgx_sealed_data_t)];
+char*newLine;
 void ocall_pass_string(const char *str)
 {
     /* Proxy/Bridge will check the length and null-terminate
@@ -529,6 +529,7 @@ int SGX_CDECL main(int argc, char *argv[])
     spm_param[2] = version_number;
     spm_param[3] = command;
     //printf("%d",sizeof(sgx_sealed_data_t));
+    newLine = (char*)malloc(1000 + sizeof(sgx_sealed_data_t));
     printf_helloworld(global_eid, policy_arr, policy_cnt, spm_param, newLine);
     fclose(fp);
     fp = fopen(POLICY_LIST, "a+");
@@ -544,5 +545,6 @@ int SGX_CDECL main(int argc, char *argv[])
     
     /* Destroy the enclave */
     sgx_destroy_enclave(global_eid);
+    free(newLine);
     return 0;
 }
