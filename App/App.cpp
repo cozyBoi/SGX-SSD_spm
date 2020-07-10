@@ -523,6 +523,7 @@ int SGX_CDECL main(int argc, char *argv[])
     
     int policy_cnt = 0;
     int pair = 0;
+    printf("policy : \n");
     while(1){
         int eof, i = 0;
         char tmp[2];
@@ -537,8 +538,10 @@ int SGX_CDECL main(int argc, char *argv[])
             if(pair == 2){
                 pair = 0;
                 line[i++] = (covert_char_to_hex(tmp[0])) * 16 + covert_char_to_hex(tmp[1]);
+                printf("%x", line[i-1]);
             }
         }
+        pritnf("\n");
         memcpy(policy_arr[policy_cnt], line, 566);
         policy_cnt++;
         if(eof == EOF) break;
