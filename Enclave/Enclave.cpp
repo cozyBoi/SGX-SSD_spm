@@ -99,7 +99,8 @@ void printf_helloworld(char policy_arr[32][566], int policy_cnt, int spm_param[4
     sgx_attributes_t attribute_mask;
     attribute_mask.flags = TSEAL_DEFAULT_FLAGSMASK;
     attribute_mask.xfrm = 0x0;
-    uint16_t key_policy = SGX_KEYPOLICY_MRSIGNER;
+    //uint16_t key_policy = SGX_KEYPOLICY_MRSIGNER;
+    uint16_t key_policy = SGX_KEYPOLICY_MRENCLAVE;
 
     /*
     const sgx_report_t* report = sgx_self_report();
