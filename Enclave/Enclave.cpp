@@ -95,20 +95,6 @@ void printf_helloworld(unsigned char policy_arr[32][566], int policy_cnt, int sp
     //근데 걍 app에서 하자
     
     //to do : make encrypted new line for policy list
-    sgx_status_t err = SGX_ERROR_UNEXPECTED;
-    sgx_attributes_t attribute_mask;
-    attribute_mask.flags = TSEAL_DEFAULT_FLAGSMASK;
-    attribute_mask.xfrm = 0x0;
-    //uint16_t key_policy = SGX_KEYPOLICY_MRSIGNER;
-    uint16_t key_policy = SGX_KEYPOLICY_MRENCLAVE;
-
-    /*
-    const sgx_report_t* report = sgx_self_report();
-    if (report->body.attributes.flags & SGX_FLAGS_KSS){
-        key_policy = SGX_KEYPOLICY_MRSIGNER | KEY_POLICY_KSS;
-    }*/
-    
-    
     printf("*** policy list ***\n");
     int i = 0;
     for(i = 0; i < policy_cnt; i++){
@@ -132,10 +118,9 @@ void printf_helloworld(unsigned char policy_arr[32][566], int policy_cnt, int sp
     uint32_t plaintext_len = original_len;
     uint32_t sealed_size = sgx_calc_sealed_data_size(NULL, original_len);
     printf("sealed_size : %d\n", sealed_size);
-    char sealed_data[sealed_size];
-    //sgx_seal_data(0, NULL,plaintext_len, (uint8_t*)tmp_policy, sealed_size, (sgx_sealed_data_t*)sealed_data);
-    sgx_seal_data_ex(key_policy, attribute_mask, TSEAL_DEFAULT_MISCMASK, NULL,
-    NULL, plaintext_len, (uint8_t*)tmp_policy, sealed_size, (sgx_sealed_data_t*)sealed_data);
+    unsigned char sealed_data[sealed_size];
+    sgx_seal_data(0, NULL,plaintext_len, (uint8_t*)tmp_policy, sealed_size, (sgx_sealed_data_t*)sealed_data);
+    //sgx_seal_data_ex(key_policy, attribute_mask, TSEAL_DEFAULT_MISCMASK, NULL, NULL, plaintext_len, (uint8_t*)tmp_policy, sealed_size, (sgx_sealed_data_t*)sealed_data);
     ocall_pass_string(sealed_data);
     sgx_unseal_data((sgx_sealed_data_t*)sealed_data, NULL, NULL, (uint8_t*)plaintext, &plaintext_len);
     printf("unsealed : %s\n", plaintext);

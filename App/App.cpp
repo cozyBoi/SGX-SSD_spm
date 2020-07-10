@@ -521,6 +521,7 @@ int SGX_CDECL main(int argc, char *argv[])
             unsigned char tmp = 0;
             eof = fscanf(fp, "%.2x", &tmp);
             if(eof == EOF || tmp == '\n') break;
+            line[i++] = tmp;
         }
         memcpy(policy_arr[policy_cnt], line, 566);
         policy_cnt++;
