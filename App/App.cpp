@@ -517,6 +517,7 @@ int SGX_CDECL main(int argc, char *argv[])
     while(1){
         int eof, i = 0;
         unsigned char line[566];
+        printf("while start\n");
         while(1){
             unsigned char tmp = 0 ;
             eof = fscanf(fp, "%.2x", &tmp);
@@ -524,7 +525,9 @@ int SGX_CDECL main(int argc, char *argv[])
             //printf("%c", tmp);
             if(tmp == '\n' || eof == EOF) break;
         }
+        printf("while end\n");
         if(eof == EOF) break;
+        printf("eof check\n");
         memcpy(policy_arr[policy_cnt], line, 566);
         policy_cnt++;
     }
