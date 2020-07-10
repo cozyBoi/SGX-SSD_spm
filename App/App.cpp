@@ -541,7 +541,7 @@ int SGX_CDECL main(int argc, char *argv[])
                 printf("%x", line[i-1]);
             }
         }
-        pritnf("\n");
+        printf("\n");
         memcpy(policy_arr[policy_cnt], line, 566);
         policy_cnt++;
         if(eof == EOF) break;
