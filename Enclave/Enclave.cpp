@@ -46,7 +46,6 @@
 #include <string.h>
 #include "sgx_trts.h"
 #include "sgx_report.h"
-#include "se_cdefs.h"
 #include "sgx_utils.h"
 #include "tSeal_internal.h"
 #include "tseal_migration_attr.h"
