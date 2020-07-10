@@ -40,6 +40,19 @@
 #include "Enclave.h"
 #include "Enclave_t.h"  /* print_string */
 
+//new
+#include <sgx_random_buffers.h>
+#include "sgx_tseal.h"
+#include <stdlib.h>
+#include <string.h>
+#include "sgx_trts.h"
+#include "sgx_report.h"
+#include "se_cdefs.h"
+#include "sgx_utils.h"
+#include "tSeal_internal.h"
+#include "tseal_migration_attr.h"
+//
+
 #define original_len 6
 #define encrypt_len 566
 
