@@ -141,7 +141,7 @@ void print_unseal_data(unsigned char policy_arr[566]){
     uint32_t plaintext_len = original_len;
     printf("here!!!!!\n");
     printf("%.2x", policy_arr[0]);
-    ocall_pass_string(policy_arr);
+    //ocall_pass_string(policy_arr);
     sgx_unseal_data((sgx_sealed_data_t*)policy_arr, NULL, NULL, (uint8_t*)plaintext, &plaintext_len);
-    printf("%s\n", plaintext);
+    printf("%c\n", plaintext[0]);
 }
