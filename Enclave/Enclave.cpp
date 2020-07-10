@@ -47,7 +47,16 @@
 #include "sgx_trts.h"
 #include "sgx_report.h"
 #include "sgx_utils.h"
-#include "tseal_migration_attr.h"
+#include "sgx_attributes.h"
+ 
+/* Set the bits which have no security implications to 0 for sealed data migration */
+/* Bits which have no security implications in attributes.flags:
+ *    Reserved bit[55:6]  - 0xFFFFFFFFFFFFC0ULL
+ *    SGX_FLAGS_MODE64BIT
+ *    SGX_FLAGS_PROVISION_KEY
+ *    SGX_FLAGS_EINITTOKEN_KEY */
+#define FLAGS_NON_SECURITY_BITS     (0xFFFFFFFFFFFFC0ULL | SGX_FLAGS_MODE64BIT | SGX_FLAGS_PROVISION_KEY| SGX_FLAGS_EINITTOKEN_KEY)
+#define TSEAL_DEFAULT_FLAGSMASK     (~FLAGS_NON_SECURITY_BITS)
 //
 
 #define original_len 6
