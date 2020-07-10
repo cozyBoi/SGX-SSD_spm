@@ -140,8 +140,14 @@ void print_unseal_data(unsigned char policy_arr[566]){
     char plaintext[original_len];
     uint32_t plaintext_len = original_len;
     printf("here!!!!!\n");
-    printf("%.2x", policy_arr[0]);
-    ocall_pass_string(policy_arr);
-    sgx_unseal_data((sgx_sealed_data_t*)policy_arr, NULL, NULL, (uint8_t*)plaintext, &plaintext_len);
-    printf("%c\n", plaintext[0]);
+    //printf("%.2x", policy_arr[0]);
+    //ocall_pass_string(policy_arr);
+    unsigned char sealed_data[566];
+    for(int i = 0; i < 566; i++){
+        sealed_data[i] = policy_arr[i];
+    }
+    sgx_unseal_data((sgx_sealed_data_t*)sealed_data, NULL, NULL, (uint8_t*)plaintext, &plaintext_len);
+    plaintext[5] = 0;
+    printf("%s\n", plaintext);
+    
 }
