@@ -86,7 +86,7 @@ void printf(const char *fmt, ...)
     ocall_print_string(buf);
 }
 
-void printf_helloworld(unsigned char policy_arr[32][566], int policy_cnt, int spm_param[4], unsigned char*newLine)
+void printf_helloworld(int policy_cnt, int spm_param[4], unsigned char*newLine)
 {
     printf("Hello World\n");
     printf("spm_param : %d %d %d\n", spm_param[0], spm_param[1], spm_param[3]);
@@ -102,11 +102,6 @@ void printf_helloworld(unsigned char policy_arr[32][566], int policy_cnt, int sp
     tmp_policy[3] = ' ';
     tmp_policy[4] = '0';
     tmp_policy[5] = 0;
-    printf("tmp policy : \n");
-    for(int i = 0; i < 6; i++){
-        printf("%.2x",tmp_policy[i]);
-    }
-    printf("\n");
     
     char plaintext[original_len];
     uint32_t plaintext_len = original_len;
