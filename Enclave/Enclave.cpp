@@ -146,6 +146,6 @@ void print_unseal_data(unsigned char policy_arr[566]){
     uint32_t plaintext_len = original_len;
     sgx_unseal_data((sgx_sealed_data_t*)policy_arr, NULL, NULL, (uint8_t*)plaintext, &plaintext_len);
     for(int i = 0; i < 6; i++){
-        printf("%.2x",plaintext[i]);
+        printf("%c",plaintext[i]);
     }
 }
