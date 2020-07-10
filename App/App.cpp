@@ -543,7 +543,7 @@ int SGX_CDECL main(int argc, char *argv[])
     for(int i = 0; i < 566; i++){
         fprintf(fp, "%x", newLine[i]);
     }
-    fprintf(fp, "\n", newLine[i]);
+    fprintf(fp, "\n");
     
     char buf[100];
     char resp[100];
