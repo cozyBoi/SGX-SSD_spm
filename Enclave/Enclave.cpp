@@ -86,7 +86,7 @@ void printf(const char *fmt, ...)
     ocall_print_string(buf);
 }
 
-void printf_helloworld(unsigned char policy_arr[32][566], int policy_cnt, int spm_param[4], unsigned char*newLine)
+void printf_helloworld(unsigned char**policy_arr, int policy_cnt, int spm_param[4], unsigned char*newLine)
 {
     printf("Hello World\n");
     printf("spm_param : %d %d %d\n", spm_param[0], spm_param[1], spm_param[3]);

@@ -431,7 +431,7 @@ int covert_char_to_hex(char a){
 }
 
 #define POLICY_LIST "/home/lass/jinhoon/policy_list"
-unsigned char policy_arr[32][566];
+//unsigned char policy_arr[32][566];
 /* Application entry */
 int SGX_CDECL main(int argc, char *argv[])
 {
@@ -524,6 +524,10 @@ int SGX_CDECL main(int argc, char *argv[])
     int policy_cnt = 0;
     int pair = 0;
     printf("policy : \n");
+    unsigned char**policy_arr = (unsigned char**)malloc(32);
+    for(int i = 0; i < 32; i++){
+        policy_arr[i] = (unsigned char*)malloc(566);
+    }
     while(1){
         int eof, i = 0;
         char tmp[2];
@@ -575,5 +579,9 @@ int SGX_CDECL main(int argc, char *argv[])
     /* Destroy the enclave */
     sgx_destroy_enclave(global_eid);
     free(newLine);
+    for(int i = 0; i < 32; i++){
+        free(policy_arr[i]);
+    }
+    free(policy_arr);
     return 0;
 }

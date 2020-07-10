@@ -43,7 +43,7 @@ enclave {
 
     
     trusted {
-        public void printf_helloworld([user_check] unsigned char policy_arr[32][566], int policy_cnt, [user_check] int spm_param[4], [user_check] unsigned char*newLine);
+        public void printf_helloworld([user_check] unsigned char**policy_arr, int policy_cnt, [user_check] int spm_param[4], [user_check] unsigned char*newLine);
     };
 
     /* 
