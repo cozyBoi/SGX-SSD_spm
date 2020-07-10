@@ -458,6 +458,52 @@ int SGX_CDECL main(int argc, char *argv[])
     printf("* Backup cycle   : day                                       *\n");
     printf("**************************************************************\n");
     
+    
+    FILE*fp = fopen(POLICY_LIST, "r+");
+       
+       int policy_cnt = 0;
+       int pair = 0;
+       //printf("policy : \n");
+       while(1){
+           int eof, i = 0;
+           char tmp[2];
+           unsigned char line[567];
+           while(1){
+               eof = fscanf(fp, "%c", &tmp[pair]);
+               if(eof == EOF || tmp[pair] == '\n') {
+                   pair = 0;
+                   break;
+               }
+               pair++;
+               if(pair == 2){
+                   pair = 0;
+                   line[i++] = (covert_char_to_hex(tmp[0])) * 16 + covert_char_to_hex(tmp[1]);
+                   //printf("%.2x", line[i-1]);
+               }
+           }
+           //printf("\n");
+           memcpy(policy_arr[policy_cnt], line, 566);
+           policy_cnt++;
+           if(eof == EOF) break;
+       }
+       printf("here\n");
+       
+       /*
+       printf("policy arr check : \n");
+       for(int i = 0; i < policy_cnt; i++){
+           for(int j = 0; j < 566; j++){
+               printf("%.2x", policy_arr[i][j]);
+           }
+           printf("\n");
+       }*/
+       //perfectly excuted
+       printf("*** policy list ***\n");
+       for(int i = 0; i < policy_cnt - 1; i++){
+           print_unseal_data(global_eid, &policy_arr[i][0]);
+           printf("\n");
+       }
+       printf("*******************\n");
+    
     //assume aurora input
     char in[1000];
     line_input(in);
@@ -519,51 +565,6 @@ int SGX_CDECL main(int argc, char *argv[])
     //debug
     //printf("data : %d%s%d%d%d\n", command, path, retention_time, backup_cycle, version_number);
     printf("data : %d%d%d\n", command, retention_time, backup_cycle);
-    
-    FILE*fp = fopen(POLICY_LIST, "r+");
-    
-    int policy_cnt = 0;
-    int pair = 0;
-    //printf("policy : \n");
-    while(1){
-        int eof, i = 0;
-        char tmp[2];
-        unsigned char line[567];
-        while(1){
-            eof = fscanf(fp, "%c", &tmp[pair]);
-            if(eof == EOF || tmp[pair] == '\n') {
-                pair = 0;
-                break;
-            }
-            pair++;
-            if(pair == 2){
-                pair = 0;
-                line[i++] = (covert_char_to_hex(tmp[0])) * 16 + covert_char_to_hex(tmp[1]);
-                //printf("%.2x", line[i-1]);
-            }
-        }
-        //printf("\n");
-        memcpy(policy_arr[policy_cnt], line, 566);
-        policy_cnt++;
-        if(eof == EOF) break;
-    }
-    printf("here\n");
-    
-    /*
-    printf("policy arr check : \n");
-    for(int i = 0; i < policy_cnt; i++){
-        for(int j = 0; j < 566; j++){
-            printf("%.2x", policy_arr[i][j]);
-        }
-        printf("\n");
-    }*/
-    //perfectly excuted
-    printf("*** policy list ***\n");
-    for(int i = 0; i < policy_cnt - 1; i++){
-        print_unseal_data(global_eid, &policy_arr[i][0]);
-        printf("\n");
-    }
-    printf("*******************\n");
 
     int spm_param[4];
     spm_param[0] = retention_time;
