@@ -86,7 +86,7 @@ void printf(const char *fmt, ...)
     ocall_print_string(buf);
 }
 
-void printf_helloworld(unsigned char**policy_arr, int policy_cnt, int spm_param[4], unsigned char*newLine)
+void printf_helloworld(unsigned char***policy_arr, int policy_cnt, int spm_param[4], unsigned char*newLine)
 {
     printf("Hello World\n");
     printf("spm_param : %d %d %d\n", spm_param[0], spm_param[1], spm_param[3]);
@@ -95,13 +95,14 @@ void printf_helloworld(unsigned char**policy_arr, int policy_cnt, int spm_param[
     //근데 걍 app에서 하자
     
     //to do : make encrypted new line for policy list
+    unsigned char**policy_arr_dp = *policy_arr;
     printf("*** policy list ***\n");
     int i = 0;
     for(i = 0; i < policy_cnt; i++){
         uint8_t plaintext[original_len];
         uint32_t plaintext_len = original_len;
         printf("ocall pass string 1 :\n");
-        ocall_pass_string(policy_arr[i]);
+        ocall_pass_string(policy_arr_dp[i]);
         sgx_unseal_data((sgx_sealed_data_t*)policy_arr[i], NULL, NULL, (uint8_t*)plaintext, &plaintext_len);
         for(int i = 0; i < 6; i++){
             printf("%.2x",plaintext[i]);

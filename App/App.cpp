@@ -558,7 +558,7 @@ int SGX_CDECL main(int argc, char *argv[])
     spm_param[3] = command;
     //printf("%d",sizeof(sgx_sealed_data_t));
     newLine = (unsigned char*)malloc(566);
-    printf_helloworld(global_eid, policy_arr, policy_cnt, spm_param, newLine);
+    printf_helloworld(global_eid, &policy_arr, policy_cnt, spm_param, newLine);
     fclose(fp);
     fp = fopen(POLICY_LIST, "a+");
     //fprintf(fp, "%d %d %d\n", retention_time, backup_cycle, 0);
@@ -582,6 +582,6 @@ int SGX_CDECL main(int argc, char *argv[])
     for(int i = 0; i < 32; i++){
         free(policy_arr[i]);
     }
-    free(policy_arr);
+    //free(policy_arr);
     return 0;
 }
