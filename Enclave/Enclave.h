@@ -43,7 +43,7 @@ extern "C" {
 #endif
 
 void printf(const char *fmt, ...);
-void printf_helloworld(char policy_arr[32][1000 + sizeof(sgx_sealed_data_t)], int policy_cnt, int spm_param[4],char*newLine);
+void printf_helloworld(char policy_arr[32][566], int policy_cnt, int spm_param[4],char*newLine);
 
 #if defined(__cplusplus)
 }

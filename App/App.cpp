@@ -534,7 +534,7 @@ int SGX_CDECL main(int argc, char *argv[])
     spm_param[2] = version_number;
     spm_param[3] = command;
     //printf("%d",sizeof(sgx_sealed_data_t));
-    newLine = (char*)malloc(1000 + sizeof(sgx_sealed_data_t));
+    newLine = (char*)malloc(566);
     printf_helloworld(global_eid, policy_arr, policy_cnt, spm_param, newLine);
     fclose(fp);
     fp = fopen(POLICY_LIST, "a+");
