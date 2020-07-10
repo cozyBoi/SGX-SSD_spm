@@ -519,7 +519,7 @@ int SGX_CDECL main(int argc, char *argv[])
         char line[566];
         while(1){
             char tmp = 0 ;
-            eof = fscanf(fp, "%c", &tmp);
+            eof = fscanf(fp, "%x", &tmp);
             line[i++] = tmp;
             //printf("%c", tmp);
             if(tmp == '\n' || eof == EOF) break;
