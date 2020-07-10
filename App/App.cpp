@@ -421,6 +421,15 @@ void ocall_pass_string(const unsigned char *str)
     memcpy(newLine, str, 566);
 }
 
+int covert_char_to_hex(char a){
+    if('0' <= a && a <= '9'){
+        return a - '0';
+    }
+    else{
+        return 10 + a - 'a';
+    }
+}
+
 #define POLICY_LIST "/home/lass/jinhoon/policy_list"
 unsigned char policy_arr[32][566];
 /* Application entry */
@@ -513,15 +522,22 @@ int SGX_CDECL main(int argc, char *argv[])
     FILE*fp = fopen(POLICY_LIST, "r+");
     
     int policy_cnt = 0;
-    
+    int pair = 0;
     while(1){
         int eof, i = 0;
+        char tmp[2] = 0;
         unsigned char line[567];
         while(1){
-            unsigned char tmp = 0;
-            eof = fscanf(fp, "%.2x", &tmp);
-            if(eof == EOF || tmp == '\n') break;
-            line[i++] = tmp;
+            eof = fscanf(fp, "%c", &tmp[pair]);
+            if(eof == EOF || tmp[pair] == '\n') {
+                pair = 0;
+                break;
+            }
+            pair++;
+            if(pair == 2){
+                pair = 0;
+                line[i++] = (covert_char_to_hex(tmp[0])) * 16 + covert_char_to_hex(tmp[1]);
+            }
         }
         memcpy(policy_arr[policy_cnt], line, 566);
         policy_cnt++;
