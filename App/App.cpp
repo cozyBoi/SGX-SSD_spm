@@ -525,7 +525,7 @@ int SGX_CDECL main(int argc, char *argv[])
     int pair = 0;
     while(1){
         int eof, i = 0;
-        char tmp[2] = 0;
+        char tmp[2];
         unsigned char line[567];
         while(1){
             eof = fscanf(fp, "%c", &tmp[pair]);
