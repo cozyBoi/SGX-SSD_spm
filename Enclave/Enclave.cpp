@@ -76,7 +76,7 @@ void printf_helloworld(char policy_arr[32][1000], int policy_cnt, int spm_param[
     tmp_policy[1] = ' ';
     tmp_policy[2] = spm_param[1] + '0';
     tmp_policy[3] = 0;
-    printf("%s\n",tmp_policy);
+    printf("tmp_policy : %s\n",tmp_policy);
     
     char plaintext[1000];
     uint32_t plaintext_len = 1000;
@@ -86,7 +86,7 @@ void printf_helloworld(char policy_arr[32][1000], int policy_cnt, int spm_param[
     sgx_seal_data(0, NULL,plaintext_len, (uint8_t*)tmp_policy, sealed_size, (sgx_sealed_data_t*)sealed_data);
     ocall_pass_string(sealed_data);
     sgx_unseal_data((sgx_sealed_data_t*)sealed_data, NULL, NULL, (uint8_t*)plaintext, &plaintext_len);
-    printf("%s\n",plaintext);
+    printf("unsealed : %s\n", plaintext);
     
     //sealing policy example (check perfect excuting)
     /*

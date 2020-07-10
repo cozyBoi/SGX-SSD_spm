@@ -406,7 +406,7 @@ void ocall_print_string(const char *str)
      */
     printf("%s", str);
 }
-char newLine[1560];
+char newLine[1000 + sizeof(sgx_sealed_data_t)];
 void ocall_pass_string(const char *str)
 {
     /* Proxy/Bridge will check the length and null-terminate
@@ -417,7 +417,7 @@ void ocall_pass_string(const char *str)
 }
 
 #define POLICY_LIST "/home/lass/jinhoon/policy_list"
-char policy_arr[32][1000];
+char policy_arr[32][1000 + sizeof(sgx_sealed_data_t)];
 /* Application entry */
 int SGX_CDECL main(int argc, char *argv[])
 {
@@ -532,9 +532,8 @@ int SGX_CDECL main(int argc, char *argv[])
     printf_helloworld(global_eid, policy_arr, policy_cnt, spm_param, newLine);
     fclose(fp);
     fp = fopen(POLICY_LIST, "a+");
-    fprintf(fp, "%d %d %d\n", retention_time, backup_cycle, 0);
-    //fprintf(fp, "%s\n", newLine); //not work
-    
+    //fprintf(fp, "%d %d %d\n", retention_time, backup_cycle, 0);
+    fprintf(fp, "%s\n", newLine); //not work
     char buf[100];
     char resp[100];
     /*
