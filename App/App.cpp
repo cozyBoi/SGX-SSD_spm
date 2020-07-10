@@ -431,7 +431,7 @@ int covert_char_to_hex(char a){
 }
 
 #define POLICY_LIST "/home/lass/jinhoon/policy_list"
-char policy_arr[32][566];
+unsigned char policy_arr[32][566];
 /* Application entry */
 int SGX_CDECL main(int argc, char *argv[])
 {
