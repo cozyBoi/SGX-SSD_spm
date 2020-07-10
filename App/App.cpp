@@ -406,7 +406,7 @@ void ocall_print_string(const char *str)
      */
     printf("%s", str);
 }
-char*newLine;
+unsigned char*newLine;
 void ocall_pass_string(const char *str)
 {
     /* Proxy/Bridge will check the length and null-terminate
@@ -422,7 +422,7 @@ void ocall_pass_string(const char *str)
 }
 
 #define POLICY_LIST "/home/lass/jinhoon/policy_list"
-char policy_arr[32][566];
+unsigned char policy_arr[32][566];
 /* Application entry */
 int SGX_CDECL main(int argc, char *argv[])
 {
@@ -516,7 +516,7 @@ int SGX_CDECL main(int argc, char *argv[])
     
     while(1){
         int eof, i = 0;
-        char line[566];
+        unsigned char line[566];
         while(1){
             char tmp = 0 ;
             eof = fscanf(fp, "%x", &tmp);
@@ -534,7 +534,7 @@ int SGX_CDECL main(int argc, char *argv[])
     spm_param[2] = version_number;
     spm_param[3] = command;
     //printf("%d",sizeof(sgx_sealed_data_t));
-    newLine = (char*)malloc(566);
+    newLine = (unsigned char*)malloc(566);
     printf_helloworld(global_eid, policy_arr, policy_cnt, spm_param, newLine);
     fclose(fp);
     fp = fopen(POLICY_LIST, "a+");

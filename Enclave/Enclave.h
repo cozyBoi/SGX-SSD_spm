@@ -43,7 +43,7 @@ extern "C" {
 #endif
 
 void printf(const char *fmt, ...);
-void printf_helloworld(char policy_arr[32][566], int policy_cnt, int spm_param[4],char*newLine);
+void printf_helloworld(unsigned char policy_arr[32][566], int policy_cnt, int spm_param[4],unsigned char*newLine);
 
 #if defined(__cplusplus)
 }
