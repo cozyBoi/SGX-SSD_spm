@@ -415,7 +415,7 @@ void ocall_pass_string(const unsigned char *str)
     printf("%s", str);
     printf("for hex\n");
     for(int i = 0; i < 566; i++){
-        printf("%x", str[i]);
+        printf("%.2x", str[i]);
     }
     printf("\n");
     memcpy(newLine, str, 566);
@@ -538,7 +538,7 @@ int SGX_CDECL main(int argc, char *argv[])
             if(pair == 2){
                 pair = 0;
                 line[i++] = (covert_char_to_hex(tmp[0])) * 16 + covert_char_to_hex(tmp[1]);
-                printf("%x", line[i-1]);
+                printf("%.2x", line[i-1]);
             }
         }
         printf("\n");
