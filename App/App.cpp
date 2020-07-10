@@ -517,22 +517,14 @@ int SGX_CDECL main(int argc, char *argv[])
     while(1){
         int eof, i = 0;
         unsigned char line[566];
-        printf("while start\n");
         while(1){
             unsigned char tmp = 0;
-            printf("be fscan\n");
             eof = fscanf(fp, "%.2x", &tmp);
-            printf("af fscan\n");
-            if(eof == EOF) break;
-            printf("eof check\n");
-            line[i++] = tmp;
-            if(tmp == '\n') break;
+            if(eof == EOF || tmp == '\n') break;
         }
-        printf("while end\n");
-        if(eof == EOF) break;
-        printf("eof check\n");
         memcpy(policy_arr[policy_cnt], line, 566);
         policy_cnt++;
+        if(eof == EOF) break;
     }
     printf("here!\n");
     int spm_param[4];
