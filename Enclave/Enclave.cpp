@@ -111,7 +111,7 @@ void printf_helloworld(int policy_cnt, int spm_param[4], unsigned char*newLine)
     sgx_seal_data(0, NULL,plaintext_len, (uint8_t*)tmp_policy, sealed_size, (sgx_sealed_data_t*)sealed_data);
     //sgx_seal_data_ex(key_policy, attribute_mask, TSEAL_DEFAULT_MISCMASK, NULL, NULL, plaintext_len, (uint8_t*)tmp_policy, sealed_size, (sgx_sealed_data_t*)sealed_data);
     printf("%.2x\n", sealed_data[0]);
-    ocall_pass_string(sealed_data);
+    //ocall_pass_string(sealed_data);
     sgx_unseal_data((sgx_sealed_data_t*)sealed_data, NULL, NULL, (uint8_t*)plaintext, &plaintext_len);
     printf("unsealed : %s\n", plaintext);
     
