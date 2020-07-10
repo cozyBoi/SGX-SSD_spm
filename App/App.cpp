@@ -414,9 +414,10 @@ void ocall_pass_string(const char *str)
      */
     printf("%s", str);
     printf("for hex\n");
-    for(int i = 0; i < 1000 && str[i] != '\0'; i++){
-        printf("%x ", str[i]);
+    for(int i = 0; i < 100; i++){
+        printf("%x", str[i]);
     }
+    printf("\n");
     strcpy(newLine, str);
 }
 
