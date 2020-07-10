@@ -41,7 +41,6 @@
 #include "Enclave_t.h"  /* print_string */
 
 //new
-#include <sgx_random_buffers.h>
 #include "sgx_tseal.h"
 #include <stdlib.h>
 #include <string.h>
