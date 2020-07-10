@@ -101,10 +101,11 @@ void printf_helloworld(char policy_arr[32][566], int policy_cnt, int spm_param[4
     attribute_mask.xfrm = 0x0;
     uint16_t key_policy = SGX_KEYPOLICY_MRSIGNER;
 
+    /*
     const sgx_report_t* report = sgx_self_report();
     if (report->body.attributes.flags & SGX_FLAGS_KSS){
         key_policy = SGX_KEYPOLICY_MRSIGNER | KEY_POLICY_KSS;
-    }
+    }*/
     
     
     printf("*** policy list ***\n");
