@@ -414,7 +414,7 @@ void ocall_pass_string(const char *str)
      */
     printf("%s", str);
     printf("for hex\n");
-    for(int i = 0; i < 100; i++){
+    for(int i = 0; i < 566; i++){
         printf("%x", str[i]);
     }
     printf("\n");
@@ -516,7 +516,7 @@ int SGX_CDECL main(int argc, char *argv[])
     
     while(1){
         int eof, i = 0;
-        char line[10];
+        char line[566];
         while(1){
             char tmp = 0 ;
             eof = fscanf(fp, "%c", &tmp);
@@ -539,7 +539,12 @@ int SGX_CDECL main(int argc, char *argv[])
     fclose(fp);
     fp = fopen(POLICY_LIST, "a+");
     //fprintf(fp, "%d %d %d\n", retention_time, backup_cycle, 0);
-    fprintf(fp, "%s\n", newLine); //not work
+    //fprintf(fp, "%s\n", newLine); //not work
+    for(int i = 0; i < 566; i++){
+        fprintf(fp, "%x", newLine[i]);
+    }
+    fprintf(fp, "\n", newLine[i]);
+    
     char buf[100];
     char resp[100];
     /*
