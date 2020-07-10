@@ -407,7 +407,7 @@ void ocall_print_string(const char *str)
     printf("%s", str);
 }
 unsigned char*newLine;
-void ocall_pass_string(const char *str)
+void ocall_pass_string(const unsigned char *str)
 {
     /* Proxy/Bridge will check the length and null-terminate
      * the input string to prevent buffer overflow.
