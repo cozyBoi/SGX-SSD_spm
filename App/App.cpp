@@ -431,7 +431,7 @@ int covert_char_to_hex(char a){
 }
 
 #define POLICY_LIST "/home/lass/jinhoon/policy_list"
-//unsigned char policy_arr[32][566];
+unsigned char policy_arr[32][566];
 /* Application entry */
 int SGX_CDECL main(int argc, char *argv[])
 {
@@ -524,10 +524,6 @@ int SGX_CDECL main(int argc, char *argv[])
     int policy_cnt = 0;
     int pair = 0;
     printf("policy : \n");
-    unsigned char**policy_arr = (unsigned char**)malloc(32);
-    for(int i = 0; i < 32; i++){
-        policy_arr[i] = (unsigned char*)malloc(566);
-    }
     while(1){
         int eof, i = 0;
         char tmp[2];
@@ -550,6 +546,13 @@ int SGX_CDECL main(int argc, char *argv[])
         policy_cnt++;
         if(eof == EOF) break;
     }
+    printf("policy arr check : \n");
+    for(int i = 0; i < policy_cnt; i++){
+        for(int j = 0; j < 566; j++){
+            printf("%.2x", policy_arr[i][j]);
+        }
+        printf("\n");
+    }
     printf("here!\n");
     int spm_param[4];
     spm_param[0] = retention_time;
@@ -558,7 +561,7 @@ int SGX_CDECL main(int argc, char *argv[])
     spm_param[3] = command;
     //printf("%d",sizeof(sgx_sealed_data_t));
     newLine = (unsigned char*)malloc(566);
-    printf_helloworld(global_eid, &policy_arr, policy_cnt, spm_param, newLine);
+    printf_helloworld(global_eid, policy_arr, policy_cnt, spm_param, newLine);
     fclose(fp);
     fp = fopen(POLICY_LIST, "a+");
     //fprintf(fp, "%d %d %d\n", retention_time, backup_cycle, 0);
@@ -579,9 +582,6 @@ int SGX_CDECL main(int argc, char *argv[])
     /* Destroy the enclave */
     sgx_destroy_enclave(global_eid);
     free(newLine);
-    for(int i = 0; i < 32; i++){
-        free(policy_arr[i]);
-    }
     //free(policy_arr);
     return 0;
 }
