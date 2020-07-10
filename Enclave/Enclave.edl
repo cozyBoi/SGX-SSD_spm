@@ -54,7 +54,7 @@ enclave {
      */
     untrusted {
         void ocall_print_string([in, string] const char *str);
-        void ocall_pass_string([user_check] unsigned char *str);
+        void ocall_pass_string([in, string] unsigned char *str);
     };
 
 };
