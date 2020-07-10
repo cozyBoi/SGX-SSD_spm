@@ -151,7 +151,7 @@ int spm_send_cmd(int fd, char* buffer, int node_size, char* response, int pid, i
     }
     
     //cmd는 register fis로 보낼거
-
+    
     switch (cmd) {
         case SPM_CREATE:
             //memcpy((char*)(u_buf+file_size), (char*)(&sp->pid), 4);
@@ -315,7 +315,7 @@ void print_error_message(sgx_status_t ret)
 {
     size_t idx = 0;
     size_t ttl = sizeof sgx_errlist/sizeof sgx_errlist[0];
-
+    
     for (idx = 0; idx < ttl; idx++) {
         if(ret == sgx_errlist[idx].err) {
             if(NULL != sgx_errlist[idx].sug)
@@ -326,7 +326,7 @@ void print_error_message(sgx_status_t ret)
     }
     
     if (idx == ttl)
-    	printf("Error code is 0x%X. Please refer to the \"Intel SGX SDK Developer Reference\" for more details.\n", ret);
+        printf("Error code is 0x%X. Please refer to the \"Intel SGX SDK Developer Reference\" for more details.\n", ret);
 }
 
 /* Initialize the enclave:
@@ -357,12 +357,12 @@ int initialize_enclave(void)
         /* if token path is too long or $HOME is NULL */
         strncpy(token_path, TOKEN_FILENAME, sizeof(TOKEN_FILENAME));
     }
-
+    
     FILE *fp = fopen(token_path, "rb");
     if (fp == NULL && (fp = fopen(token_path, "wb")) == NULL) {
         printf("Warning: Failed to create/open the launch token file \"%s\".\n", token_path);
     }
-
+    
     if (fp != NULL) {
         /* read the token from saved file */
         size_t read_num = fread(token, 1, sizeof(sgx_launch_token_t), fp);
@@ -380,14 +380,14 @@ int initialize_enclave(void)
         if (fp != NULL) fclose(fp);
         return -1;
     }
-
+    
     /* Step 3: save the launch token if it is updated */
     if (updated == FALSE || fp == NULL) {
         /* if the token is not updated, or file handler is invalid, do not perform saving */
         if (fp != NULL) fclose(fp);
         return 0;
     }
-
+    
     /* reopen the file with write capablity */
     fp = freopen(token_path, "wb", fp);
     if (fp == NULL) return 0;
@@ -412,13 +412,13 @@ void ocall_pass_string(unsigned char *str)
     /* Proxy/Bridge will check the length and null-terminate
      * the input string to prevent buffer overflow.
      */
-   // printf("%s", str);
+    // printf("%s", str);
     /*
-    printf("for hex\n");
-    for(int i = 0; i < 566; i++){
-        printf("%.2x", str[i]);
-    }
-    printf("\n");*/
+     printf("for hex\n");
+     for(int i = 0; i < 566; i++){
+     printf("%.2x", str[i]);
+     }
+     printf("\n");*/
     memcpy(newLine, str, 566);
 }
 
@@ -438,8 +438,8 @@ int SGX_CDECL main(int argc, char *argv[])
 {
     (void)(argc);
     (void)(argv);
-
-
+    
+    
     /* Initialize the enclave */
     if(initialize_enclave() < 0){
         printf("Enter a character before exit ...\n");
@@ -460,50 +460,50 @@ int SGX_CDECL main(int argc, char *argv[])
     
     
     FILE*fp = fopen(POLICY_LIST, "r+");
-       
-       int policy_cnt = 0;
-       int pair = 0;
-       //printf("policy : \n");
-       while(1){
-           int eof, i = 0;
-           char tmp[2];
-           unsigned char line[567];
-           while(1){
-               eof = fscanf(fp, "%c", &tmp[pair]);
-               if(eof == EOF || tmp[pair] == '\n') {
-                   pair = 0;
-                   break;
-               }
-               pair++;
-               if(pair == 2){
-                   pair = 0;
-                   line[i++] = (covert_char_to_hex(tmp[0])) * 16 + covert_char_to_hex(tmp[1]);
-                   //printf("%.2x", line[i-1]);
-               }
-           }
-           //printf("\n");
-           memcpy(policy_arr[policy_cnt], line, 566);
-           policy_cnt++;
-           if(eof == EOF) break;
-       }
-       printf("here\n");
-       
-       /*
-       printf("policy arr check : \n");
-       for(int i = 0; i < policy_cnt; i++){
-           for(int j = 0; j < 566; j++){
-               printf("%.2x", policy_arr[i][j]);
-           }
-           printf("\n");
-       }*/
-       //perfectly excuted
-       printf("*** policy list ***\n");
-       for(int i = 0; i < policy_cnt - 1; i++){
-           print_unseal_data(global_eid, &policy_arr[i][0]);
-           printf("\n");
-       }
-       printf("*******************\n");
     
+    int policy_cnt = 0;
+    int pair = 0;
+    //printf("policy : \n");
+    while(1){
+        int eof, i = 0;
+        char tmp[2];
+        unsigned char line[567];
+        while(1){
+            eof = fscanf(fp, "%c", &tmp[pair]);
+            if(eof == EOF || tmp[pair] == '\n') {
+                pair = 0;
+                break;
+            }
+            pair++;
+            if(pair == 2){
+                pair = 0;
+                line[i++] = (covert_char_to_hex(tmp[0])) * 16 + covert_char_to_hex(tmp[1]);
+                //printf("%.2x", line[i-1]);
+            }
+        }
+        //printf("\n");
+        memcpy(policy_arr[policy_cnt], line, 566);
+        policy_cnt++;
+        if(eof == EOF) break;
+    }
+    printf("\n\n");
+    
+    /*
+     printf("policy arr check : \n");
+     for(int i = 0; i < policy_cnt; i++){
+     for(int j = 0; j < 566; j++){
+     printf("%.2x", policy_arr[i][j]);
+     }
+     printf("\n");
+     }*/
+    //perfectly excuted
+    printf("*** policy list ***\n");
+    for(int i = 0; i < policy_cnt - 1; i++){
+        print_unseal_data(global_eid, &policy_arr[i][0]);
+        printf("\n");
+    }
+    printf("*******************\n");
+    printf("\n\n");
     //assume aurora input
     char in[1000];
     line_input(in);
@@ -565,7 +565,7 @@ int SGX_CDECL main(int argc, char *argv[])
     //debug
     //printf("data : %d%s%d%d%d\n", command, path, retention_time, backup_cycle, version_number);
     printf("data : %d%d%d\n", command, retention_time, backup_cycle);
-
+    
     int spm_param[4];
     spm_param[0] = retention_time;
     spm_param[1] = backup_cycle;
@@ -586,10 +586,10 @@ int SGX_CDECL main(int argc, char *argv[])
     char buf[100];
     char resp[100];
     /*
-    if(spm_send_cmd(0, buf, 0, resp, policy_cnt, &spm_param) == -1){
-        printf("[spm] error command didn't reach to ssd");
-        return 0;
-    }*/
+     if(spm_send_cmd(0, buf, 0, resp, policy_cnt, &spm_param) == -1){
+     printf("[spm] error command didn't reach to ssd");
+     return 0;
+     }*/
     
     /* Destroy the enclave */
     sgx_destroy_enclave(global_eid);
