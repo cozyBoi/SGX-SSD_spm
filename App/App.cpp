@@ -548,17 +548,18 @@ int SGX_CDECL main(int argc, char *argv[])
     }
     printf("here\n");
     
+    /*
     printf("policy arr check : \n");
     for(int i = 0; i < policy_cnt; i++){
         for(int j = 0; j < 566; j++){
             printf("%.2x", policy_arr[i][j]);
         }
         printf("\n");
-    }
+    }*/
     //perfectly excuted
     printf("*** policy list ***\n");
     for(int i = 0; i < policy_cnt; i++){
-        print_unseal_data(global_eid, policy_arr[i]);
+        print_unseal_data(global_eid, &policy_arr[i][j]);
         printf("\n");
     }
     printf("*******************\n");
