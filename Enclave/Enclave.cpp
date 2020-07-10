@@ -95,21 +95,6 @@ void printf_helloworld(unsigned char policy_arr[32][566], int policy_cnt, int sp
     //근데 걍 app에서 하자
     
     //to do : make encrypted new line for policy list
-    printf("*** policy list ***\n");
-    int i = 0;
-    for(i = 0; i < policy_cnt; i++){
-        uint8_t plaintext[original_len];
-        uint32_t plaintext_len = original_len;
-        printf("ocall pass string 1 :\n");
-        ocall_pass_string(policy_arr[i]);
-        sgx_unseal_data((sgx_sealed_data_t*)policy_arr[i], NULL, NULL, (uint8_t*)plaintext, &plaintext_len);
-        for(int i = 0; i < 6; i++){
-            printf("%.2x",plaintext[i]);
-        }
-        printf("\n");
-    }
-    printf("*******************\n");
-    
     unsigned char tmp_policy[original_len];
     tmp_policy[0] = spm_param[0] + '0';
     tmp_policy[1] = ' ';
@@ -155,3 +140,12 @@ void printf_helloworld(unsigned char policy_arr[32][566], int policy_cnt, int sp
 }
 
 //spm_send_cmd 에서 암호화가 됐다고 가정하고 걍 마샬링 잘해서 보내면 될듯
+
+void print_unseal_data(unsigned char policy_arr[566]){
+    uint8_t plaintext[original_len];
+    uint32_t plaintext_len = original_len;
+    sgx_unseal_data((sgx_sealed_data_t*)policy_arr, NULL, NULL, (uint8_t*)plaintext, &plaintext_len);
+    for(int i = 0; i < 6; i++){
+        printf("%.2x",plaintext[i]);
+    }
+}

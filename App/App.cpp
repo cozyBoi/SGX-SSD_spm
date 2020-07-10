@@ -523,7 +523,7 @@ int SGX_CDECL main(int argc, char *argv[])
     
     int policy_cnt = 0;
     int pair = 0;
-    printf("policy : \n");
+    //printf("policy : \n");
     while(1){
         int eof, i = 0;
         char tmp[2];
@@ -538,14 +538,15 @@ int SGX_CDECL main(int argc, char *argv[])
             if(pair == 2){
                 pair = 0;
                 line[i++] = (covert_char_to_hex(tmp[0])) * 16 + covert_char_to_hex(tmp[1]);
-                printf("%.2x", line[i-1]);
+                //printf("%.2x", line[i-1]);
             }
         }
-        printf("\n");
+        //printf("\n");
         memcpy(policy_arr[policy_cnt], line, 566);
         policy_cnt++;
         if(eof == EOF) break;
     }
+    /*
     printf("policy arr check : \n");
     for(int i = 0; i < policy_cnt; i++){
         for(int j = 0; j < 566; j++){
@@ -553,7 +554,15 @@ int SGX_CDECL main(int argc, char *argv[])
         }
         printf("\n");
     }
-    printf("here!\n");
+    printf("here!\n");*/
+    //perfectly excuted
+    printf("*** policy list ***\n");
+    for(int i = 0; i < policy_cnt; i++){
+        print_unseal_data(policy_arr[i]);
+        printf("\n");
+    }
+    printf("*******************\n");
+
     int spm_param[4];
     spm_param[0] = retention_time;
     spm_param[1] = backup_cycle;
