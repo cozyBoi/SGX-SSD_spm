@@ -519,11 +519,11 @@ int SGX_CDECL main(int argc, char *argv[])
         unsigned char line[566];
         printf("while start\n");
         while(1){
-            unsigned char tmp = 0 ;
+            unsigned char tmp = 0;
             eof = fscanf(fp, "%.2x", &tmp);
+            if(eof == EOF) break;
             line[i++] = tmp;
-            //printf("%c", tmp);
-            if(tmp == '\n' || eof == EOF) break;
+            if(tmp == '\n') break;
         }
         printf("while end\n");
         if(eof == EOF) break;
