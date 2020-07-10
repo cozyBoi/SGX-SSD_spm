@@ -413,11 +413,12 @@ void ocall_pass_string(unsigned char *str)
      * the input string to prevent buffer overflow.
      */
    // printf("%s", str);
+    /*
     printf("for hex\n");
     for(int i = 0; i < 566; i++){
         printf("%.2x", str[i]);
     }
-    printf("\n");
+    printf("\n");*/
     memcpy(newLine, str, 566);
 }
 
