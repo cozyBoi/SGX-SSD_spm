@@ -44,7 +44,7 @@ extern "C" {
 
 void printf(const char *fmt, ...);
 void printf_helloworld(int policy_cnt, int spm_param[4],unsigned char*newLine);
-void print_unseal_data(char policy_arr[566]);
+void print_unseal_data(unsigned char policy_arr[566]);
 #if defined(__cplusplus)
 }
 #endif
