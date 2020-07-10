@@ -63,6 +63,7 @@ void printf_helloworld(char policy_arr[32][1000 + sizeof(sgx_sealed_data_t)], in
     //근데 걍 app에서 하자
     
     //to do : make encrypted new line for policy list
+    printf("*** policy list ***");
     int i = 0;
     for(i = 0; i < policy_cnt; i++){
         uint8_t plaintext[1000];
@@ -70,7 +71,6 @@ void printf_helloworld(char policy_arr[32][1000 + sizeof(sgx_sealed_data_t)], in
         sgx_unseal_data((sgx_sealed_data_t*)policy_arr[i], NULL, NULL, (uint8_t*)plaintext, &plaintext_len);
         printf("%s\n", plaintext);
     }
-    
     char tmp_policy[1000];
     tmp_policy[0] = spm_param[0] + '0';
     tmp_policy[1] = ' ';
