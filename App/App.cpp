@@ -520,8 +520,11 @@ int SGX_CDECL main(int argc, char *argv[])
         printf("while start\n");
         while(1){
             unsigned char tmp = 0;
+            printf("be fscan\n");
             eof = fscanf(fp, "%.2x", &tmp);
+            printf("af fscan\n");
             if(eof == EOF) break;
+            printf("eof check\n");
             line[i++] = tmp;
             if(tmp == '\n') break;
         }
