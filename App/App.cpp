@@ -546,6 +546,7 @@ int SGX_CDECL main(int argc, char *argv[])
         policy_cnt++;
         if(eof == EOF) break;
     }
+    printf("here\n");
     /*
     printf("policy arr check : \n");
     for(int i = 0; i < policy_cnt; i++){
