@@ -559,7 +559,7 @@ int SGX_CDECL main(int argc, char *argv[])
     //perfectly excuted
     printf("*** policy list ***\n");
     for(int i = 0; i < policy_cnt; i++){
-        print_unseal_data(global_eid, &policy_arr[i][j]);
+        print_unseal_data(global_eid, &policy_arr[i][0]);
         printf("\n");
     }
     printf("*******************\n");
