@@ -422,7 +422,7 @@ void ocall_pass_string(const char *str)
 }
 
 #define POLICY_LIST "/home/lass/jinhoon/policy_list"
-char policy_arr[32][1000 + sizeof(sgx_sealed_data_t)];
+char policy_arr[32][566];
 /* Application entry */
 int SGX_CDECL main(int argc, char *argv[])
 {
