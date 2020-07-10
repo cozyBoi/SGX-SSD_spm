@@ -528,6 +528,7 @@ int SGX_CDECL main(int argc, char *argv[])
         memcpy(policy_arr[policy_cnt], line, 566);
         policy_cnt++;
     }
+    printf("here!\n");
     int spm_param[4];
     spm_param[0] = retention_time;
     spm_param[1] = backup_cycle;
