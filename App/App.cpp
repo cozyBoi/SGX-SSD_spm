@@ -412,7 +412,7 @@ void ocall_pass_string(const unsigned char *str)
     /* Proxy/Bridge will check the length and null-terminate
      * the input string to prevent buffer overflow.
      */
-    printf("%s", str);
+   // printf("%s", str);
     printf("for hex\n");
     for(int i = 0; i < 566; i++){
         printf("%.2x", str[i]);
