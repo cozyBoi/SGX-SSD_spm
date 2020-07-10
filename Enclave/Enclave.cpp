@@ -101,18 +101,24 @@ void printf_helloworld(unsigned char policy_arr[32][566], int policy_cnt, int sp
         uint8_t plaintext[original_len];
         uint32_t plaintext_len = original_len;
         sgx_unseal_data((sgx_sealed_data_t*)policy_arr[i], NULL, NULL, (uint8_t*)plaintext, &plaintext_len);
-        printf("%s\n", plaintext);
+        for(int i = 0; i < 6; i++){
+            printf("%.2x",plaintext[i]);
+        }
     }
     printf("*******************\n");
     
-    char tmp_policy[original_len];
+    unsigned char tmp_policy[original_len];
     tmp_policy[0] = spm_param[0] + '0';
     tmp_policy[1] = ' ';
     tmp_policy[2] = spm_param[1] + '0';
     tmp_policy[3] = ' ';
     tmp_policy[4] = '0';
     tmp_policy[5] = 0;
-    printf("tmp_policy : %s\n",tmp_policy);
+    printf("tmp policy : \n");
+    for(int i = 0; i < 6; i++){
+        printf("%.2x",tmp_policy[i]);
+    }
+    printf("\n");
     
     char plaintext[original_len];
     uint32_t plaintext_len = original_len;
