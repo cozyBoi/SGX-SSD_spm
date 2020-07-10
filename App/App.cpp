@@ -518,14 +518,14 @@ int SGX_CDECL main(int argc, char *argv[])
         int eof, i = 0;
         unsigned char line[566];
         while(1){
-            char tmp = 0 ;
-            eof = fscanf(fp, "%x", &tmp);
+            unsigned char tmp = 0 ;
+            eof = fscanf(fp, "%.2x", &tmp);
             line[i++] = tmp;
             //printf("%c", tmp);
             if(tmp == '\n' || eof == EOF) break;
         }
         if(eof == EOF) break;
-        strcpy(policy_arr[policy_cnt], line);
+        memcpy(policy_arr[policy_cnt], line, 566);
         policy_cnt++;
     }
     int spm_param[4];
@@ -541,7 +541,7 @@ int SGX_CDECL main(int argc, char *argv[])
     //fprintf(fp, "%d %d %d\n", retention_time, backup_cycle, 0);
     //fprintf(fp, "%s\n", newLine); //not work
     for(int i = 0; i < 566; i++){
-        fprintf(fp, "%x", newLine[i]);
+        fprintf(fp, "%.2x", newLine[i]);
     }
     fprintf(fp, "\n");
     
