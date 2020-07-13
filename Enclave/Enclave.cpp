@@ -101,8 +101,8 @@ void printf_helloworld(int policy_cnt, int spm_param[4], unsigned char*newLine)
     tmp_policy[5] = 0;
     
     //to do : make encrypt msg and MAC headed for ssd
-    uint8_t msg1[4] = {'l', 'a', 's','s', 0};
-    uint8_t msg2[4] = {'L', 'A', 'S','S', 0};
+    uint8_t msg1[5] = {'l', 'a', 's','s', 0};
+    uint8_t msg2[5] = {'L', 'A', 'S','S', 0};
     
     uint32_t plaintext_len2 = original_len;
     uint32_t sealed_size2 = sgx_calc_sealed_data_size(NULL, original_len);
