@@ -112,10 +112,10 @@ void printf_helloworld(int policy_cnt, int spm_param[4], unsigned char*newLine)
     uint32_t MAC_len1 = 4, MAC_len2 = 4;
     
     if(sgx_unmac_aadata((sgx_sealed_data_t*)sealed_data2, msg1, &MAC_len1) == SGX_SUCCESS){
-        printf("compare with \"lass\" => true");
+        printf("compare with \"lass\" => true\n");
     }
     if(sgx_unmac_aadata((sgx_sealed_data_t*)sealed_data2, msg2, &MAC_len2) != SGX_SUCCESS){
-        printf("compare with \"LASS\" => false");
+        printf("compare with \"LASS\" => false\n");
     }
     
     //to do : make encrypted new line for policy list
