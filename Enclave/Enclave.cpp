@@ -91,10 +91,7 @@ void printf_helloworld(int policy_cnt, int spm_param[4], unsigned char*newLine)
     printf("Hello World\n");
     printf("spm_param : %d %d %d\n", spm_param[0], spm_param[1], spm_param[3]);
     
-    //to do : make encrypt msg headed for ssd
-    //근데 걍 app에서 하자
-    
-    //to do : make encrypted new line for policy list
+    //make original policy
     unsigned char tmp_policy[original_len];
     tmp_policy[0] = spm_param[0] + '0';
     tmp_policy[1] = ' ';
@@ -103,36 +100,26 @@ void printf_helloworld(int policy_cnt, int spm_param[4], unsigned char*newLine)
     tmp_policy[4] = '0';
     tmp_policy[5] = 0;
     
-    char plaintext[original_len];
+    //to do : make encrypt msg and MAC headed for ssd
+    uint32_t plaintext_len2 = original_len;
+    uint32_t sealed_size2 = sgx_calc_sealed_data_size(NULL, original_len);
+    unsigned char sealed_data2[sealed_size];
+    sgx_seal_data(4, "lass", plaintext_len2, (uint8_t*)tmp_policy, sealed_size2, (sgx_sealed_data_t*)sealed_data2);
+    //but no pass to app
+    if(sgx_unmac_aadata(sealed_data2, "lass", 4) == SGX_SUCCESS){
+        printf("compare with \"lass\" => true");
+    }
+    if(sgx_unmac_aadata(sealed_data2, "LASS", 4) != SGX_SUCCESS){
+        printf("compare with \"LASS\" => false");
+    }
+    
+    //to do : make encrypted new line for policy list
     uint32_t plaintext_len = original_len;
     uint32_t sealed_size = sgx_calc_sealed_data_size(NULL, original_len);
-    printf("sealed_size : %d\n", sealed_size);
     unsigned char sealed_data[sealed_size];
     sgx_seal_data(0, NULL,plaintext_len, (uint8_t*)tmp_policy, sealed_size, (sgx_sealed_data_t*)sealed_data);
-    //sgx_seal_data_ex(key_policy, attribute_mask, TSEAL_DEFAULT_MISCMASK, NULL, NULL, plaintext_len, (uint8_t*)tmp_policy, sealed_size, (sgx_sealed_data_t*)sealed_data);
-    //printf("%.2x\n", sealed_data[0]);
+    
     ocall_pass_string(sealed_data);
-    //sgx_unseal_data((sgx_sealed_data_t*)sealed_data, NULL, NULL, (uint8_t*)plaintext, &plaintext_len);
-    //printf("unsealed : %s\n", plaintext);
-    
-    //sealing policy example (check perfect excuting)
-    /*
-    char tmp_policy[1000];
-    tmp_policy[0] = spm_param[0] + '0';
-    tmp_policy[1] = ' ';
-    tmp_policy[2] = spm_param[1] + '0';
-    tmp_policy[3] = 0;
-    printf("%s\n",tmp_policy);
-    
-    char plaintext[1000];
-    uint32_t plaintext_len = 1000;
-    char sealed_data[sizeof(sgx_sealed_data_t) + 1000];
-    uint32_t sealed_size = sizeof(sgx_sealed_data_t) + 1000;
-    
-    sgx_seal_data(0, NULL,plaintext_len, (uint8_t*)tmp_policy, sealed_size, (sgx_sealed_data_t*)sealed_data);
-    sgx_unseal_data((sgx_sealed_data_t*)sealed_data, NULL, NULL, (uint8_t*)plaintext, &plaintext_len);
-    printf("%s\n", sealed_data); //why not printed?
-    printf("%s\n",plaintext);*/
 }
 
 //spm_send_cmd 에서 암호화가 됐다고 가정하고 걍 마샬링 잘해서 보내면 될듯
@@ -140,8 +127,6 @@ void printf_helloworld(int policy_cnt, int spm_param[4], unsigned char*newLine)
 void print_unseal_data(unsigned char policy_arr[566]){
     char plaintext[original_len];
     uint32_t plaintext_len = original_len;
-    //printf("%.2x", policy_arr[0]);
-    //ocall_pass_string(policy_arr);
     unsigned char sealed_data[566];
     for(int i = 0; i < 566; i++){
         sealed_data[i] = policy_arr[i];
