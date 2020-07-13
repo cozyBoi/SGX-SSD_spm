@@ -106,10 +106,11 @@ void printf_helloworld(int policy_cnt, int spm_param[4], unsigned char*newLine)
     unsigned char sealed_data2[sealed_size2];
     sgx_seal_data(4, "lass", plaintext_len2, (uint8_t*)tmp_policy, sealed_size2, (sgx_sealed_data_t*)sealed_data2);
     //but no pass to app
-    if(sgx_unmac_aadata(sealed_data2, "lass", 4) == SGX_SUCCESS){
+    uint32_t MAC_len1 = 4, MAC_len2 = 4;
+    if(sgx_unmac_aadata(sealed_data2, "lass", &MAC_len1) == SGX_SUCCESS){
         printf("compare with \"lass\" => true");
     }
-    if(sgx_unmac_aadata(sealed_data2, "LASS", 4) != SGX_SUCCESS){
+    if(sgx_unmac_aadata(sealed_data2, "LASS", &MAC_len2) != SGX_SUCCESS){
         printf("compare with \"LASS\" => false");
     }
     
