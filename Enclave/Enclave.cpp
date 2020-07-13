@@ -101,16 +101,20 @@ void printf_helloworld(int policy_cnt, int spm_param[4], unsigned char*newLine)
     tmp_policy[5] = 0;
     
     //to do : make encrypt msg and MAC headed for ssd
+    uint8_t msg1[4] = {'l', 'a', 's','s', 0};
+    uint8_t msg2[4] = {'L', 'A', 'S','S', 0};
+    
     uint32_t plaintext_len2 = original_len;
     uint32_t sealed_size2 = sgx_calc_sealed_data_size(NULL, original_len);
     unsigned char sealed_data2[sealed_size2];
-    sgx_seal_data(4, "lass", plaintext_len2, (uint8_t*)tmp_policy, sealed_size2, (sgx_sealed_data_t*)sealed_data2);
+    sgx_seal_data(4, msg1, plaintext_len2, (uint8_t*)tmp_policy, sealed_size2, (sgx_sealed_data_t*)sealed_data2);
     //but no pass to app
     uint32_t MAC_len1 = 4, MAC_len2 = 4;
-    if(sgx_unmac_aadata(sealed_data2, "lass", &MAC_len1) == SGX_SUCCESS){
+    
+    if(sgx_unmac_aadata(sealed_data2, msg1, &MAC_len1) == SGX_SUCCESS){
         printf("compare with \"lass\" => true");
     }
-    if(sgx_unmac_aadata(sealed_data2, "LASS", &MAC_len2) != SGX_SUCCESS){
+    if(sgx_unmac_aadata(sealed_data2, msg2, &MAC_len2) != SGX_SUCCESS){
         printf("compare with \"LASS\" => false");
     }
     
