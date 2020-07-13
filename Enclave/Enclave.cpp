@@ -103,7 +103,7 @@ void printf_helloworld(int policy_cnt, int spm_param[4], unsigned char*newLine)
     //to do : make encrypt msg and MAC headed for ssd
     uint32_t plaintext_len2 = original_len;
     uint32_t sealed_size2 = sgx_calc_sealed_data_size(NULL, original_len);
-    unsigned char sealed_data2[sealed_size];
+    unsigned char sealed_data2[sealed_size2];
     sgx_seal_data(4, "lass", plaintext_len2, (uint8_t*)tmp_policy, sealed_size2, (sgx_sealed_data_t*)sealed_data2);
     //but no pass to app
     if(sgx_unmac_aadata(sealed_data2, "lass", 4) == SGX_SUCCESS){
