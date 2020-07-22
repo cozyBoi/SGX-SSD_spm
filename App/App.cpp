@@ -612,8 +612,8 @@ int SGX_CDECL main(int argc, char *argv[])
                 for(int j = 0; j < 566; j++){
                     fprintf(fp, "%.2x", policy_arr[i][j]);
                 }
+                fprintf(fp, "\n");
             }
-            fprintf(fp, "\n");
         }
     }
     char buf[100];
