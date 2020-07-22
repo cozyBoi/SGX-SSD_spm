@@ -453,6 +453,9 @@ int SGX_CDECL main(int argc, char *argv[])
     printf("*                                                            *\n");
     printf("* ex) {create|change|delete} {ret_time} {Backup_cycle}       *\n");
     printf("*                                                            *\n");
+    printf("*                                                            *\n");
+    printf("* notice -> delete's param must be 0 0                       *\n");
+    printf("*                                                            *\n");
     printf("* units:                                                     *\n");
     printf("* retention time : day                                       *\n");
     printf("* Backup cycle   : day                                       *\n");
@@ -549,7 +552,10 @@ int SGX_CDECL main(int argc, char *argv[])
         printf("what pid to change : ");
         scanf("%d", &pid);
     }
-    
+    else if(command == SPM_CHANGE){
+        printf("what pid to delete : ");
+        scanf("%d", &pid);
+    }
     strcpy(path, para_arr[1]);
     
     if(!branch){
@@ -575,14 +581,32 @@ int SGX_CDECL main(int argc, char *argv[])
     newLine = (unsigned char*)malloc(566);
     printf_helloworld(global_eid, policy_cnt, spm_param, newLine);
     fclose(fp);
-    fp = fopen(POLICY_LIST, "a+");
-    //fprintf(fp, "%d %d %d\n", retention_time, backup_cycle, 0);
-    //fprintf(fp, "%s\n", newLine); //not work
-    for(int i = 0; i < 566; i++){
-        fprintf(fp, "%.2x", newLine[i]);
+    if(command == SPM_CREATE){
+        fp = fopen(POLICY_LIST, "a+");
+        //fprintf(fp, "%d %d %d\n", retention_time, backup_cycle, 0);
+        //fprintf(fp, "%s\n", newLine); //not work
+        for(int i = 0; i < 566; i++){
+            fprintf(fp, "%.2x", newLine[i]);
+        }
+        fprintf(fp, "\n");
+        fclose(fp);
     }
-    fprintf(fp, "\n");
-    
+    else if(command == SPM_CHANGE || command == SPM_DELETE){
+        fp = fopen(POLICY_LIST, "w+");
+        for(int i = 0; i < policy_cnt; i++){
+            if(i == pid){
+                for(int j = 0; j < 566; j++){
+                    fprintf(fp, "%.2x", newLine[j]);
+                }
+            }
+            else{
+                for(int j = 0; j < 566; j++){
+                    fprintf(fp, "%.2x", policy_arr[i][j]);
+                }
+            }
+            fprintf(fp, "\n");
+        }
+    }
     char buf[100];
     char resp[100];
     /*
