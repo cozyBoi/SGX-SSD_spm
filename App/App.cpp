@@ -552,7 +552,7 @@ int SGX_CDECL main(int argc, char *argv[])
         printf("what pid to change : ");
         scanf("%d", &pid);
     }
-    else if(command == SPM_CHANGE){
+    else if(command == SPM_DELETE){
         printf("what pid to delete : ");
         scanf("%d", &pid);
     }
