@@ -558,19 +558,13 @@ int SGX_CDECL main(int argc, char *argv[])
     }
     strcpy(path, para_arr[1]);
     
-    if(!branch){
-        //not recovery
+    if(command != SPM_DELETE){
         retention_time = atoi(para_arr[1]);
         backup_cycle = atoi(para_arr[2]);
-        //version_number = atoi(para_arr[4]);
-    }
-    else{
-        //recovery
-        //??
     }
     //debug
     //printf("data : %d%s%d%d%d\n", command, path, retention_time, backup_cycle, version_number);
-    printf("data : %d%d%d\n", command, retention_time, backup_cycle);
+    //printf("data : %d%d%d\n", command, retention_time, backup_cycle);
     
     int spm_param[4];
     spm_param[0] = retention_time;
@@ -591,19 +585,30 @@ int SGX_CDECL main(int argc, char *argv[])
         fprintf(fp, "\n");
         fclose(fp);
     }
-    else if(command == SPM_CHANGE || command == SPM_DELETE){
+    else if(command == SPM_CHANGE){
         fp = fopen(POLICY_LIST, "w+");
         printf("policy_cnt : %d\n", policy_cnt);
         policy_cnt--;
         for(int i = 0; i < policy_cnt; i++){
             if(i == pid){
-                printf("hi1\n");
                 for(int j = 0; j < 566; j++){
                     fprintf(fp, "%.2x", newLine[j]);
                 }
             }
             else{
-                printf("hi2\n");
+                for(int j = 0; j < 566; j++){
+                    fprintf(fp, "%.2x", policy_arr[i][j]);
+                }
+            }
+            fprintf(fp, "\n");
+        }
+    }
+    else if(command == SPM_DELETE){
+        fp = fopen(POLICY_LIST, "w+");
+        printf("policy_cnt : %d\n", policy_cnt);
+        policy_cnt--;
+        for(int i = 0; i < policy_cnt; i++){
+            if(i != pid){
                 for(int j = 0; j < 566; j++){
                     fprintf(fp, "%.2x", policy_arr[i][j]);
                 }
