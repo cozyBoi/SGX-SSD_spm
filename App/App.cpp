@@ -593,13 +593,16 @@ int SGX_CDECL main(int argc, char *argv[])
     }
     else if(command == SPM_CHANGE || command == SPM_DELETE){
         fp = fopen(POLICY_LIST, "w+");
+        printf("policy_cnt : %d\n", policy_cnt);
         for(int i = 0; i < policy_cnt; i++){
             if(i == pid){
+                printf("hi1\n");
                 for(int j = 0; j < 566; j++){
                     fprintf(fp, "%.2x", newLine[j]);
                 }
             }
             else{
+                printf("hi2\n");
                 for(int j = 0; j < 566; j++){
                     fprintf(fp, "%.2x", policy_arr[i][j]);
                 }
